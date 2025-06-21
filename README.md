@@ -14,3 +14,4 @@
 - Frontend: **HTML / CSS / Tailwind / TypeScript** 
 - Backend: **Express**
 - База даних: **MongoDB**
+- Пакетний менеджер: **Bun**
