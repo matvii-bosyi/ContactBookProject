@@ -23,7 +23,7 @@
 ### 1. Клонуй репозиторій
 
 ```bash
-git clone https://github.com/matvii-bosyi/contact-book.git
+https://github.com/matvii-bosyi/ContactBookProject/tree/main
 cd contact-book
 ````
 
