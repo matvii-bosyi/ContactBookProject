@@ -4,11 +4,13 @@
   "type": "module",
   "scripts": {
     "build": "bun run tailwindcss -i ./src/input.css -o ./dist/output.css --minify",
-    "dev": "bun run tailwindcss -i ./src/input.css -o ./dist/output.css --watch"
+    "development": "bun run tailwindcss -i ./src/input.css -o ./dist/output.css --watch",
+    "dev": "concurrently \"bun run development\" \"bunx serve ./src\""
   },
   "private": true,
   "devDependencies": {
-    "@types/bun": "latest"
+    "@types/bun": "latest",
+    "concurrently": "^9.1.2"
   },
   "peerDependencies": {
     "typescript": "^5"
