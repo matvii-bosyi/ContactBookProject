@@ -1,0 +1,5 @@
+@import "tailwindcss";
+
+@theme {
+	--color-chocolate: #7B3F00;
+}

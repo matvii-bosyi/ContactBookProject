@@ -1,0 +1,20 @@
+{
+  "name": "contactbookproject",
+  "module": "index.ts",
+  "type": "module",
+  "scripts": {
+    "build": "bun run tailwindcss -i ./src/input.css -o ./dist/output.css --minify",
+    "dev": "bun run tailwindcss -i ./src/input.css -o ./dist/output.css --watch"
+  },
+  "private": true,
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "@tailwindcss/cli": "^4.1.10",
+    "tailwindcss": "^4.1.10"
+  }
+}
