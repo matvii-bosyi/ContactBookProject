@@ -11,6 +11,6 @@
 
 ## 🧱 Технології
 
-- Frontend: **HTML / CSS / Tailwind/  TypeScript** 
+- Frontend: **HTML / CSS / Tailwind / TypeScript** 
 - Backend: **Express**
 - База даних: **MongoDB**
