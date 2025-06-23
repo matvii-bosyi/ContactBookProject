@@ -11,10 +11,12 @@
 
 ## 🧱 Технології
 
-- Frontend: **HTML / CSS / Tailwind / TypeScript** 
-- Backend: **Hono**
+- Frontend: **HTML / CSS / TypeScript**
+- Стилі: **[Tailwind](https://tailwindcss.com/)**
+- Backend: **[Hono](https://hono.dev/)**
+- Шаблонізатор: **[Eta](https://eta.js.org/)**
 - База даних: **MongoDB**
-- Пакетний менеджер: **Bun**
+- Пакетний менеджер: **[Bun](https://bun.sh/)**
 
 ## 🚀 Як запустити
 
