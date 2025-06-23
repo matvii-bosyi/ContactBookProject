@@ -15,7 +15,7 @@
 - Стилі: **[Tailwind](https://tailwindcss.com/)**
 - Backend: **[Hono](https://hono.dev/)**
 - Шаблонізатор: **[Eta](https://eta.js.org/)**
-- База даних: **MongoDB**
+- База даних: **[MongoDB](https://www.mongodb.com/)**
 - Пакетний менеджер: **[Bun](https://bun.sh/)**
 
 ## 🚀 Як запустити
