@@ -11,10 +11,12 @@
 
 ## 🧱 Технології
 
-- Frontend: **HTML / CSS / Tailwind / TypeScript** 
-- Backend: **Express**
-- База даних: **MongoDB**
-- Пакетний менеджер: **Bun**
+- Frontend: **HTML / CSS / TypeScript**
+- Стилі: **[Tailwind](https://tailwindcss.com/)**
+- Backend: **[Hono](https://hono.dev/)**
+- Шаблонізатор: **[Eta](https://eta.js.org/)**
+- База даних: **[MongoDB](https://www.mongodb.com/)**
+- Пакетний менеджер: **[Bun](https://bun.sh/)**
 
 ## 🚀 Як запустити
 
@@ -36,7 +38,7 @@ bun install
 ### 3. Запусти локальний сервер
 
 ```bash
-bun dev
+bun run dev
 ```
 
 ### 4. Відкрий у браузері
