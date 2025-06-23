@@ -1,22 +1,25 @@
 {
-  "name": "contactbookproject",
+  "name": "tasks",
   "module": "index.ts",
   "type": "module",
   "scripts": {
-    "build": "bun run tailwindcss -i ./src/input.css -o ./dist/output.css --minify",
-    "development": "bun run tailwindcss -i ./src/input.css -o ./dist/output.css --watch",
-    "dev": "concurrently \"bun run development\" \"bunx serve ./src\""
+    "dev:css": "bunx @tailwindcss/cli -i ./src/styles/input.css -o ./public/output.css --watch",
+    "dev:server": "bun run index.ts",
+    "dev": "concurrently \"bun run dev:css\" \"bun run dev:server\""
   },
   "private": true,
   "devDependencies": {
-    "@types/bun": "latest",
-    "concurrently": "^9.1.2"
+    "@types/bun": "latest"
   },
   "peerDependencies": {
     "typescript": "^5"
   },
   "dependencies": {
     "@tailwindcss/cli": "^4.1.10",
+    "concurrently": "^9.2.0",
+    "eta": "^3.5.0",
+    "hono": "^4.8.2",
+    "mongoose": "^8.16.0",
     "tailwindcss": "^4.1.10"
   }
 }

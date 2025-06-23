@@ -1,0 +1,5 @@
+<ul class="bg-pink-100 p-4 text-[15px]">
+<% it.contacts.forEach(function(contact){ %>
+	<li><%= contact.name %> - <%= contact.phoneNumber %></li>
+<% }) %>
+</ul>
