@@ -7,8 +7,11 @@
     --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
       "Courier New", monospace;
     --color-pink-100: oklch(94.8% 0.028 342.258);
-    --color-gray-100: oklch(96.7% 0.003 264.542);
+    --color-gray-800: oklch(27.8% 0.033 256.848);
+    --color-white: #fff;
     --spacing: 0.25rem;
+    --text-sm: 0.875rem;
+    --text-sm--line-height: calc(1.25 / 0.875);
     --default-font-family: var(--font-sans);
     --default-mono-font-family: var(--font-mono);
   }
@@ -159,13 +162,35 @@
   }
 }
 @layer utilities {
+  .flex {
+    display: flex;
+  }
+  .h-16 {
+    height: calc(var(--spacing) * 16);
+  }
+  .items-center {
+    align-items: center;
+  }
+  .justify-center {
+    justify-content: center;
+  }
+  .bg-gray-800 {
+    background-color: var(--color-gray-800);
+  }
   .bg-pink-100 {
     background-color: var(--color-pink-100);
   }
   .p-4 {
     padding: calc(var(--spacing) * 4);
   }
+  .text-sm {
+    font-size: var(--text-sm);
+    line-height: var(--tw-leading, var(--text-sm--line-height));
+  }
   .text-\[15px\] {
     font-size: 15px;
+  }
+  .text-white {
+    color: var(--color-white);
   }
 }

@@ -1,0 +1,4 @@
+<footer class="flex justify-center items-center h-16 bg-gray-800 text-white">
+	<p class="text-sm">Thank you for visiting our site!</p>
+	<p>© 2023 Your Company Name</p>
+</footer>

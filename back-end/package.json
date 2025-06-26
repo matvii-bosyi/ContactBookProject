@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "dev:css": "bunx @tailwindcss/cli -i ./src/styles/input.css -o ./public/output.css --watch",
-    "dev:server": "bun run index.ts",
+    "dev:server": "bun run --watch index.ts",
     "dev": "concurrently \"bun run dev:css\" \"bun run dev:server\""
   },
   "private": true,

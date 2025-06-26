@@ -6,8 +6,10 @@
 	<link href="/public/output.css" rel="stylesheet">
 </head>
 <body>
+  <%~ include('../partials/header.eta') %>
 
-  <%~ include('../partials/contactList.eta', { contacts: it.contacts }) %>
+  <%~ it.body %>
 
+  <%~ include('../partials/footer.eta') %>
 </body>
 </html>
