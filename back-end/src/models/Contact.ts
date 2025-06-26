@@ -1,4 +1,4 @@
-const { Schema, model } = require('mongoose');
+import { Schema, model } from 'mongoose'
 
 const schema = new Schema({
 	name: {
@@ -7,8 +7,12 @@ const schema = new Schema({
 	},
 	phoneNumber: {
 		type: String,
-		required: true
+		required: true,
+		match: /^\+?[0-9\s\-]{7,15}$/,
+		unique: true
 	}
+}, {
+	timestamps: true
 })
 
-module.exports = model('Contact', schema)
+export default model('Contact', schema)

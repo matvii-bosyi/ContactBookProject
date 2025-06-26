@@ -1,47 +1,112 @@
 import { Hono } from 'hono'
-import { eta } from '../../index'
-const Contact = require('../models/Contact')
+import mongoose from 'mongoose'
+import Contact from '../models/Contact'
 
 const mainRoutes = new Hono()
 
-mainRoutes.get('/', async (c) => {
-	const contacts = await Contact.find().sort({ createdAt: -1 })
-
-	const contactListHtml = await eta.render('pages/contactsList', { contacts })
-	const html = await eta.render('layouts/main', { body: contactListHtml })
-
-	return c.html(html)
-})
-
-mainRoutes.get('/:id', async (c) => {
+mainRoutes.get('/', async c => {
 	try {
-		const id = c.req.param('id')
-		const contact = await Contact.findById(id)
-
-		return c.json(contact)
+		const contacts = await Contact.find().sort({ createdAt: -1 })
+		return c.json(contacts)
 	} catch (err) {
-		return c.json({ error: err }, 500)
+		return c.json({ error: 'Failed to fetch contacts' }, 500)
 	}
 })
 
-mainRoutes.post('/create', async (c) => {
-	const body = await c.req.json()
+mainRoutes.get('/:id', async c => {
+	try {
+		const id = c.req.param('id')
 
-	const contact = new Contact({
-		name: body.name,
-		phoneNumber: body.phoneNumber,
-	})
+		if (!mongoose.Types.ObjectId.isValid(id)) {
+			return c.json({ error: 'Invalid ID format' }, 400)
+		}
 
-	await contact.save()
-	return c.redirect('/')
+		const contact = await Contact.findById(id)
+
+		if (!contact) {
+			return c.json({ error: 'Contact not found' }, 404)
+		}
+
+		return c.json(contact)
+	} catch (err) {
+		return c.json({ error: 'Failed to fetch contact' }, 500)
+	}
 })
 
-mainRoutes.delete('/delete', async (c) => {
-	const body = await c.req.json()
+mainRoutes.post('/', async c => {
+	try {
+		const body = await c.req.json()
 
-	await Contact.findByIdAndDelete(body.id)
+		if (!body.name || !body.phoneNumber) {
+			return c.json({ error: 'Name and phoneNumber are required' }, 400)
+		}
 
-	return c.redirect('/')
+		const contact = new Contact({
+			name: body.name,
+			phoneNumber: body.phoneNumber
+		})
+
+		await contact.save()
+		return c.json({ message: 'Contact created', contact }, 201)
+	} catch (err) {
+		if (typeof err === 'object' && err !== null && 'code' in err && (err as any).code === 11000) {
+			return c.json({ error: 'Phone number already exists' }, 409)
+		}
+		return c.json({ error: 'Failed to create contact' }, 500)
+	}
+})
+
+mainRoutes.put('/:id', async c => {
+	try {
+		const id = c.req.param('id')
+
+		if (!mongoose.Types.ObjectId.isValid(id)) {
+			return c.json({ error: 'Invalid ID format' }, 400)
+		}
+
+		const body = await c.req.json()
+
+		if (!body.name || !body.phoneNumber) {
+			return c.json({ error: 'Name and phoneNumber are required' }, 400)
+		}
+
+		const updated = await Contact.findByIdAndUpdate(
+			id,
+			{ name: body.name, phoneNumber: body.phoneNumber },
+			{ new: true, runValidators: true }
+		)
+
+		if (!updated) {
+			return c.json({ error: 'Contact not found' }, 404)
+		}
+
+		return c.json({ message: 'Contact updated', contact: updated }, 200)
+	} catch (err) {
+		if (typeof err === 'object' && err !== null && 'code' in err && (err as any).code === 11000) {
+			return c.json({ error: 'Phone number already exists' }, 409)
+		}
+		return c.json({ error: 'Failed to update contact' }, 500)
+	}
+})
+
+mainRoutes.delete('/:id', async c => {
+	try {
+		const id = c.req.param('id')
+
+		if (!mongoose.Types.ObjectId.isValid(id)) {
+			return c.json({ error: 'Invalid ID format' }, 400)
+		}
+
+		const deleted = await Contact.findByIdAndDelete(id)
+
+		if (!deleted) {
+			return c.json({ error: 'Contact not found' }, 404)
+		}
+
+		return c.json({ message: 'Contact deleted' }, 200)
+	} catch (err) {
+		return c.json({ error: 'Failed to delete contact' }, 500)
+	}
 })
 
 export default mainRoutes
