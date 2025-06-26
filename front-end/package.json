@@ -3,9 +3,10 @@
   "module": "index.ts",
   "type": "module",
   "scripts": {
-    "dev:css": "bun run tailwindcss -i ./src/styles/input.css -o ./src/styles/output.css --watch",
-    "build:css": "bun run tailwindcss -i ./src/styles/input.css -o ./src/styles/output.css",
-    "": ""
+    "dev:css": "bunx @tailwindcss/cli -i ./src/styles/input.css -o ./public/output.css --watch",
+
+    "build:css": "bun run tailwindcss -i ./src/styles/input.css -o ./src/styles/output.css"
+
   },
   "private": true,
   "devDependencies": {

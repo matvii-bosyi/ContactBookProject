@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+</head>
+
+<body>
+<header class="pt-[60px] max-w-[1960px] px-[50px] mx-auto">
+	<div class="flex justify-center items-center w-full ">
+		<div class="navcontainer w-full flex justify-center bg-lavanda items-center border border-[4px] rounded-[5px] border-black ">
+			<h1 class="text-[36px]  ">Головна сторінка</h1>
+		</div>
+	</div>
+
+</header>
+</body>
+
+</html>
