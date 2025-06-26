@@ -44,5 +44,5 @@ bun run dev
 ### 4. Відкрий у браузері
 
 ```
-http://localhost:5173
+http://localhost:3000
 ```
