@@ -1,1 +1,15 @@
-@import "tailwindcss"
+@import 'tailwindcss'
+
+:root {
+	--color-myGray: #ebeef6;
+	--color-lavanda: #8f96d6;
+	--color-lightLavanda: #a3b6e3;
+	--color-lightSky: #a3c4e5;
+	--color-sky: #8cafde;
+}
+
+@layer base {
+	html {
+		font-family: 'Pangolin', cursive;
+	}
+}
