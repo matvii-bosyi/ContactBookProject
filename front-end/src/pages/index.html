@@ -1,149 +1,89 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link rel="stylesheet" href="/styles/output.css" />
-	</head>
-	<body class="bg-[var(--color-myGray)]">
-		<header>
-			<div
-				class="flex items-center justify-center py-[15px] border-2 border-gray-400 rounded-[10px] bg-[var(--color-lightSky)]"
-				style="
-					background-image: linear-gradient(
-							to right,
-							rgba(140, 175, 222, 0.7),
-							rgba(163, 196, 229, 0.5),
-							rgba(140, 175, 222, 0.7)
-						),
-						linear-gradient(
-							to left,
-							rgba(140, 175, 222, 0.7),
-							rgba(163, 196, 229, 0.5),
-							rgba(140, 175, 222, 0.7)
-						),
-						url('/front-end/img/bgPhone.png');
-					background-size: cover;
-					background-position: center;
-					background-repeat: no-repeat;
-					background-blend-mode: overlay;
-				">
-				<h1 class="text-[36px] font-Pangolin z-10">
-					Контактна&nbsp;&nbsp;книга
-				</h1>
-			</div>
-		</header>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="../styles/output.css" rel="stylesheet">
+</head>
+<body class="bg-[var(--color-myGray)]">
 
-		<section>
-			<div class="flex items-center justify-center pt-[35px] gap-4">
-				<div class="flex-grow h-[4px] bg-gray-400"></div>
+<header>
+	<div class="flex items-center justify-center py-[15px] border-2 border-gray-400 rounded-[10px] bg-[var(--color-lightSky)] " style="background-image:linear-gradient(to right, rgba(140, 175, 222, 0.7), rgba(163, 196, 229, 0.5), rgba(140, 175, 222, 0.7)),      linear-gradient(to left, rgba(140, 175, 222, 0.7), rgba(163, 196, 229, 0.5), rgba(140, 175, 222, 0.7)),url('../img/backgrounds/main.png');background-size: cover;background-position: center;background-repeat: no-repeat;background-blend-mode: overlay;">
+		<h1 class="text-[36px] font-Pangolin z-10">Контактна&nbsp;&nbsp;книга</h1>
+	</div>
+</header>
 
-				<a
-					href="ContactInfo.html"
-					class="flex items-center gap-[10px] cursor-pointer justify-center px-[15px] rounded-[10px] py-[10px] border-4 border-gray-400 bg-blue-200 hover:bg-blue-100 flex-shrink-0">
-					<p class="text-[20px]">Створити&nbsp;&nbsp;контакт</p>
-					<img src="/front-end/icon/plus.png" alt="" class="w-10 h-10" />
-				</a>
 
-				<div class="flex-grow h-[4px] bg-gray-400"></div>
+<section>
+	<div class="flex items-center justify-center pt-[35px] gap-4">
+		<div class="flex-grow h-[4px] bg-gray-400"></div>
+
+		<a href="contactCreate.html" class="flex hover:scale-120 items-center gap-[10px] cursor-pointer justify-center px-[15px] rounded-[10px] py-[10px] border-4 border-gray-400 bg-blue-200 hover:bg-blue-100 flex-shrink-0">
+			<p class="text-[20px] ">Створити&nbsp;&nbsp;контакт</p>
+			<img src=../img/icons/plus.png alt="" class="w-10 h-10" />
+		</a>
+
+		<div class="flex-grow h-[4px] bg-gray-400"></div>
+	</div>
+
+
+	<div class="pt-[30px]">
+		<div class="flex items-center justify-center">
+			<p class="text-[35px]">Пошук&nbsp;&nbsp;контактів</p>
+		</div>
+	</div>
+
+	<div id="app-root" class="w-full flex flex-col justify-center items-center px-4" >
+		<div class="w-full max-w-[700px] flex flex-col">
+			<div class="pt-[10px] flex items-center justify-center gap-[20px]">
+				<input type="text" placeholder="Пошук" id="search-input" class="flex-1 bg-white text-[25px] px-4 py-2 border border-gray-400 rounded-[10px] outline-none"/>
+				<button id="btn-search" class="flex-shrink-0 border border-gray-400 bg-white hover:bg-blue-100 p-[6px] cursor-pointer rounded-[10px]">
+					<img src="../img/icons/search.webp" class="w-[40px] h-[40px]" />
+				</button>
+				<button id="btn-clear" class="flex-shrink-0 border border-gray-400 bg-white hover:bg-blue-100 p-[6px] cursor-pointer rounded-[10px]">
+					<img src="../img/icons/close.webp" class="w-[40px] h-[40px]" />
+				</button>
 			</div>
 
-			<div class="pt-[30px]">
-				<div class="flex items-center justify-center">
-					<p class="text-[35px]">Пошук&nbsp;&nbsp;контактів</p>
-				</div>
+			<div class="flex justify-between mt-[10px]">
+				<button id="btn-sort" class="flex items-center gap-[10px] cursor-pointer px-[25px] py-[10px] rounded-[10px] border-2 border-gray-400 bg-blue-200 hover:bg-blue-100">
+					<p>Сортувати&nbsp;&nbsp;за<span class="pl-[10px]">↑↓</span></p>
+				</button>
+				<button id="btn-reset" class="flex items-center gap-[10px] cursor-pointer px-[25px] py-[10px] rounded-[10px] border-2 border-gray-400 bg-blue-200 hover:bg-blue-100">
+					<p>Очистити</p>
+				</button>
 			</div>
 
-			<div class="w-full flex flex-col justify-center items-center px-4">
-				<div class="w-full max-w-[700px] flex flex-col">
-					<div class="pt-[10px] flex items-center justify-center gap-[20px]">
-						<input
-							type="text"
-							placeholder="Пошук"
-							class="flex-1 bg-white text-[25px] px-4 py-2 border border-gray-400 rounded-[10px] outline-none" />
-						<button
-							class="flex-shrink-0 border border-gray-400 bg-white hover:bg-blue-100 p-[6px] cursor-pointer rounded-[10px]">
-							<img
-								src="/front-end/icon/search.webp"
-								class="w-[40px] h-[40px]" />
-						</button>
-						<button
-							class="flex-shrink-0 border border-gray-400 bg-white hover:bg-blue-100 p-[6px] cursor-pointer rounded-[10px]">
-							<img src="/front-end/icon/close.webp" class="w-[40px] h-[40px]" />
-						</button>
-					</div>
-
-					<div class="flex justify-between mt-[10px]">
-						<button
-							class="flex items-center gap-[10px] cursor-pointer px-[25px] py-[10px] rounded-[10px] border-2 border-gray-400 bg-blue-200 hover:bg-blue-100">
-							<p>Сортувати&nbsp;&nbsp;за<span class="pl-[10px]">↑↓</span></p>
-						</button>
-						<button
-							class="flex items-center gap-[10px] cursor-pointer px-[25px] py-[10px] rounded-[10px] border-2 border-gray-400 bg-blue-200 hover:bg-blue-100">
-							<p>Очистити</p>
-						</button>
-					</div>
-
-					<div
-						class="w-full gap-[20px] mt-[30px] p-[30px] flex flex-col h-[600px] border-2 border-gray-400 rounded-[10px] overflow-auto">
-						<div
-							class="w-full rounded-[10px] flex items-center min-h-[70px] gap-[10px] border-2 border-gray-400 px-[20px]">
-							<div
-								class="flex cursor-pointer justify-between items-center flex-1 min-w-0">
-								<div class="flex items-center gap-[10px] min-w-0">
-									<div
-										class="rounded-full border-2 border-gray-400 bg-gray-400 flex-shrink-0">
-										<img
-											src=""
-											alt=""
-											class="w-[40px] h-[40px] rounded-[50px]" />
-									</div>
-									<div
-										class="flex items-center px-[10px] w-[220px] py-[2px] border-2 border-gray-400 rounded-[10px] min-w-0">
-										<p class="truncate whitespace-nowrap overflow-hidden m-0">
-											Толстая Вікорія Миколаївна
-										</p>
-									</div>
-								</div>
-								<div>
-									<div
-										class="flex justify-center items-center px-[10px] w-[150px] py-[2px] border-2 border-gray-400 rounded-[10px] min-w-0">
-										<p class="truncate whitespace-nowrap overflow-hidden m-0">
-											+12345678910
-										</p>
-									</div>
-								</div>
+			<div id="results-container" class="w-full gap-[20px] mt-[30px] p-[30px] flex flex-col h-[600px] border-2  bg-gradient-to-b from-gray-300 to-blue-200 border-gray-400  rounded-[10px] overflow-auto">
+				<div class="w-full rounded-[10px] flex items-center min-h-[70px] gap-[10px] border-2 bg-white hover:border-4 hover:border-gray-500 border-gray-400 px-[20px]">
+					<div class="flex cursor-pointer justify-between items-center flex-1 min-w-0">
+						<div class="flex items-center gap-[10px] min-w-0">
+							<div class="rounded-full border-2 border-gray-400 bg-gray-400 flex-shrink-0">
+								<img src="" alt="" class="w-[40px] h-[40px]" />
+							</div>
+							<div class="flex items-center px-[10px] w-[220px] py-[2px] border-2 bg-blue-50 border-gray-400 rounded-[10px] min-w-0">
+								<p class="truncate whitespace-nowrap overflow-hidden m-0">Толстая Вікорія Миколаївна</p>
+							</div>
+						</div>
+						<div>
+							<div class="flex justify-center items-center px-[10px] w-[150px] bg-blue-50 py-[2px] border-2 border-gray-400 rounded-[10px] min-w-0">
+								<p class="truncate whitespace-nowrap overflow-hidden m-0">+12345678910</p>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</section>
+		</div>
+	</div>
+</section>
 
-		<footer class="pt-[50px]">
-			<div
-				class="flex items-center justify-center py-[15px] border-2 border-gray-400 rounded-[10px] bg-[var(--color-lightSky)]"
-				style="
-					background-image: linear-gradient(
-							to right,
-							rgba(140, 175, 222, 0.7),
-							rgba(163, 196, 229, 0.5),
-							rgba(140, 175, 222, 0.7)
-						),
-						linear-gradient(
-							to left,
-							rgba(140, 175, 222, 0.7),
-							rgba(163, 196, 229, 0.5),
-							rgba(140, 175, 222, 0.7)
-						),
-						url('/front-end/img/bgPhone.png');
-					background-size: cover;
-					background-position: center;
-					background-repeat: no-repeat;
-					background-blend-mode: overlay;
-				">
-				<h1 class="text-[36px] font-Pangolin z-10">...</h1>
-			</div>
-		</footer>
-	</body>
+
+<footer class="pt-[50px]">
+	<div class="flex items-center justify-center py-[15px] border-2 border-gray-400 rounded-[10px] bg-[var(--color-lightSky)] " style="background-image:linear-gradient(to right, rgba(140, 175, 222, 0.7), rgba(163, 196, 229, 0.5), rgba(140, 175, 222, 0.7)),      linear-gradient(to left, rgba(140, 175, 222, 0.7), rgba(163, 196, 229, 0.5), rgba(140, 175, 222, 0.7)),url('../img/backgrounds/main.png');background-size: cover;background-position: center;background-repeat: no-repeat;background-blend-mode: overlay;">
+		<h1 class="text-[36px] font-Pangolin z-10">...</h1>
+	</div>
+</footer>
+
+<script src="../scripts/main.ts"></script>
+</body>
 </html>
