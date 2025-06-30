@@ -1,12 +1,12 @@
 import { Hono } from 'hono'
-import { serveStatic } from 'hono/bun'
+import { cors } from 'hono/cors'
 import mainRoutes from './src/routes/main'
 const mongoose = require('mongoose')
 
 const DATABASE = process.env.DATABASE
 
 const app = new Hono()
-app.use('/public/*', serveStatic({ root: './' }))
+app.use('*', cors())
 app.route('/', mainRoutes)
 
 async function start() {
