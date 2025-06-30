@@ -1,5 +1,7 @@
 @import 'tailwindcss';
 
+@import url('https://fonts.googleapis.com/css2?family=Pangolin&display=swap');
+
 :root {
 	--color-myGray: #ebeef6;
 	--color-lavanda: #8f96d6;
@@ -12,4 +14,14 @@
 	html {
 		font-family: 'Pangolin', cursive;
 	}
+}
+
+body {
+	font-family: 'Pangolin', cursive;
+	font-weight: 400;
+	font-style: normal;
+}
+
+* {
+	transition: all 0.3s ease-in-out;
 }

@@ -1,8 +1,8 @@
-import { fetchContacts } from '../api/contact.js';
+import { getAllContacts } from '../api/contact.api.js';
 
 async function loadContacts() {
     try {
-        const contacts = await fetchContacts();
+        const contacts = await getAllContacts();
         console.log('Contacts:', contacts);
     } catch (error) {
         console.error('Error loading contacts:', error);
