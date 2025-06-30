@@ -14,7 +14,6 @@
 - Frontend: **HTML / CSS / TypeScript**
 - Стилі: **[Tailwind](https://tailwindcss.com/)**
 - Backend: **[Hono](https://hono.dev/)**
-- Шаблонізатор: **[Eta](https://eta.js.org/)**
 - База даних: **[MongoDB](https://www.mongodb.com/)**
 - Пакетний менеджер: **[Bun](https://bun.sh/)**
 
@@ -26,12 +25,13 @@
 
 ```bash
 git clone https://github.com/matvii-bosyi/ContactBookProject/
-cd contact-book
+cd ContactBookProject
 ````
 
-### 2. Встанови залежності
+### 2. Встанови залежності на сервері
 
 ```bash
+cd back-end
 bun install
 ```
 
