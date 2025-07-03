@@ -13,8 +13,10 @@
     "typescript": "^5"
   },
   "dependencies": {
+    "@hono/zod-validator": "^0.7.0",
     "concurrently": "^9.2.0",
     "hono": "^4.8.2",
-    "mongoose": "^8.16.0"
+    "mongoose": "^8.16.0",
+    "zod": "^3.25.67"
   }
 }
