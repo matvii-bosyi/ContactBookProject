@@ -25,6 +25,21 @@ mainRoutes.get('/', async c => {
 	}
 })
 
+mainRoutes.get('/phone/:phoneNumber', async c => {
+  try {
+    const phoneNumber = c.req.param('phoneNumber')
+    const contact = await Contact.findOne({ phoneNumber })
+
+    if (!contact) {
+      return c.json({ error: 'Contact not found' }, 404)
+    }
+
+    return c.json(contact)
+  } catch (err) {
+    return c.json({ error: 'Failed to fetch contact' }, 500)
+  }
+})
+
 mainRoutes.get('/:id', async c => {
 	try {
 		const id = c.req.param('id')
