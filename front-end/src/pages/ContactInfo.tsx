@@ -125,6 +125,9 @@ const ContactInfo: React.FC = () => {
 					<Link to='/'>
 						<Button variant='back'>Повернутися до списку</Button>
 					</Link>
+					<Link to={`/edit-contact/${contact.phoneNumber}`}>
+						<Button variant='edit'>Редагувати</Button>
+					</Link>
 					<Button variant='delete' onClick={handleDelete}>Видалити</Button>
 				</div>
 			</div>

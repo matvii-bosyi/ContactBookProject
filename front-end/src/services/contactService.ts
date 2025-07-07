@@ -66,3 +66,23 @@ export const deleteContact = async (id: string): Promise<void> => {
     throw error;
   }
 };
+
+export const updateContact = async (id: string, updatedContact: IContact): Promise<IContact> => {
+  try {
+    const response = await fetch(`${API_BASE_URL}${id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(updatedContact),
+    });
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const data: IContact = await response.json();
+    return data;
+  } catch (error) {
+    console.error(`Помилка при оновленні контакту з id ${id}:`, error);
+    throw error;
+  }
+};

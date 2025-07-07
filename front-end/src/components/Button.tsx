@@ -1,8 +1,8 @@
-import { FaTrash, FaArrowLeft, FaPlus } from 'react-icons/fa';
+import { FaTrash, FaArrowLeft, FaPlus, FaEdit } from 'react-icons/fa';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
-  variant: 'delete' | 'back' | 'add';
+  variant: 'delete' | 'back' | 'add' | 'edit';
 }
 
 const Button: React.FC<ButtonProps> = ({ children, className = '', variant, ...props }) => {
@@ -12,12 +12,14 @@ const Button: React.FC<ButtonProps> = ({ children, className = '', variant, ...p
     delete: 'bg-red-500 text-white hover:bg-red-700 hover:shadow-[0px_15px_20px_rgba(255,0,0,0.4)]',
     back: 'bg-gray-500 text-white hover:bg-gray-700 hover:shadow-[0px_15px_20px_rgba(128,128,128,0.4)]',
     add: 'bg-green-500 text-white hover:bg-green-700 hover:shadow-[0px_15px_20px_rgba(0,255,0,0.4)]',
+    edit: 'bg-blue-500 text-white hover:bg-blue-700 hover:shadow-[0px_15px_20px_rgba(0,0,255,0.4)]',
   };
 
   const icons = {
     delete: <FaTrash className="mr-2" />,
     back: <FaArrowLeft className="mr-2" />,
     add: <FaPlus className="mr-2" />,
+    edit: <FaEdit className="mr-2" />,
   };
 
   return (
