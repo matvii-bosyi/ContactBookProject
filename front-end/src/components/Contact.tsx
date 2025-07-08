@@ -1,14 +1,31 @@
 import { Link } from 'react-router-dom';
 import type { IContact } from '@/types/contact';
 
-const Contact: React.FC<IContact> = ({ name, phoneNumber }) => {
+const Contact: React.FC<IContact> = ({ name, phoneNumber  }) => {
   return (
     <Link
       to={`/contact/${phoneNumber}`}
-      className="border-b border-gray-200 py-2 px-4 flex justify-between items-center hover:bg-gray-50 transition duration-150 ease-in-out cursor-pointer"
+      className="block bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 ease-in-out overflow-hidden"
     >
-      <div className="text-lg font-medium">{name}</div>
-      <div className="text-gray-600">{phoneNumber}</div>
+      <div className="p-5">
+        <div className="flex items-center space-x-4">
+          <div className="flex-shrink-0">
+            <img 
+              className="w-16 h-16 rounded-full object-cover"
+              src={`https://api.dicebear.com/6.x/initials/svg?seed=${name}`}
+              alt={`${name}'s avatar`}
+            />
+          </div>
+          <div className="flex-1 min-w-0">
+            <p className="text-xl font-bold text-gray-900 truncate">
+              {name}
+            </p>
+            <p className="text-sm text-gray-500 truncate">
+              {phoneNumber}
+            </p>
+          </div>
+        </div>
+      </div>
     </Link>
   );
 };

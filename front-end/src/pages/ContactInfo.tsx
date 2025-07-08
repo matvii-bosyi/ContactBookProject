@@ -5,7 +5,10 @@ import {
 	getContactByPhoneNumber,
 	deleteContact
 } from '@/services/contactService'
-import Button from '@/components/Button'
+import { Button, IconButton } from '@mui/material'
+import DeleteIcon from '@mui/icons-material/Delete'
+import EditIcon from '@mui/icons-material/Edit'
+// import Button from '@/components/Button'
 
 const ContactInfo: React.FC = () => {
 	const { phoneNumber } = useParams<{ phoneNumber: string }>()
@@ -32,7 +35,7 @@ const ContactInfo: React.FC = () => {
 	}, [phoneNumber])
 
 	const handleDelete = async () => {
-		if (contact && contact._id) {
+		if (contact?._id) {
 			if (window.confirm('Чи ви впевнені що хочете видалити контакт?')) {
 				try {
 					await deleteContact(contact._id)
@@ -64,7 +67,8 @@ const ContactInfo: React.FC = () => {
 				Контакт з номером {phoneNumber} не знайдено.
 				<div className='mt-4'>
 					<Link to='/'>
-						<Button variant='back'>Повернутися до списку</Button>
+						{/* <Button variant='back'>Повернутися до списку</Button> */}
+						<Button variant='contained'>Повернутися до списку</Button>
 					</Link>
 				</div>
 			</div>
@@ -123,16 +127,21 @@ const ContactInfo: React.FC = () => {
 
 				<div className='mt-6 flex justify-center space-x-4'>
 					<Link to='/'>
-						<Button variant='back'>Повернутися до списку</Button>
+						<Button variant='contained'>Повернутися до списку</Button>
 					</Link>
 					<Link to={`/edit-contact/${contact.phoneNumber}`}>
-						<Button variant='edit'>Редагувати</Button>
+						<IconButton aria-label='edit' color='primary'>
+							<EditIcon />
+						</IconButton>
 					</Link>
-					<Button variant='delete' onClick={handleDelete}>Видалити</Button>
+					<IconButton onClick={handleDelete} aria-label='delete'
+						color='primary'>
+						<DeleteIcon />
+					</IconButton>
 				</div>
 			</div>
 		</div>
-	)
+	) 
 }
 
 export default ContactInfo

@@ -2,8 +2,9 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { addContact } from '@/services/contactService'
 import type { IContact } from '@/types/contact'
-import Button from '@/components/Button'
 import Input from '@/components/Input'
+import { Button } from '@mui/material'
+import AddIcon from '@mui/icons-material/Add'
 
 const AddContact = () => {
 	const [formData, setFormData] = useState<IContact>({
@@ -146,8 +147,19 @@ const AddContact = () => {
 					placeholder='https://github.com/...'
 					error={errors.github}
 				/>
-				<Button variant='add' type='submit'>
-					Add Contact
+				{/* <TextField
+					id='standard-basic'
+					label='Github'
+					variant='standard'
+					id='github'
+					type='url'
+					value={formData.github}
+					onChange={handleChange}
+					placeholder='https://github.com/...'
+					error={errors.github}
+				/> */}
+				<Button type='submit' variant='contained' startIcon={<AddIcon />}>
+					Створити контакт
 				</Button>
 			</form>
 		</div>

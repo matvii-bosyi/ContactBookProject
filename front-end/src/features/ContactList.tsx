@@ -7,13 +7,18 @@ interface ContactListProps {
 
 const ContactList: React.FC<ContactListProps> = ({ contacts }) => {
   return (
-    <div className='w-full h-[500px] max-w-3xl bg-white shadow-md rounded-xl p-[20px]'>
+    <div className='w-full max-w-4xl'>
       {contacts.length > 0 ? (
-        contacts.map((contact) => (
-          <Contact key={contact.phoneNumber} name={contact.name} phoneNumber={contact.phoneNumber} />
-        ))
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+          {contacts.map((contact) => (
+            <Contact key={contact.phoneNumber} {...contact} />
+          ))}
+        </div>
       ) : (
-        <div className="text-center text-gray-500">Контакти не знайдено.</div>
+        <div className="text-center text-gray-500 mt-10">
+          <p className="text-xl">Контакти не знайдено.</p>
+          <p className="text-md mt-2">Спробуйте змінити пошуковий запит або додати новий контакт.</p>
+        </div>
       )}
     </div>
   );

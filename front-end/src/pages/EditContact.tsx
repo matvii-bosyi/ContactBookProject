@@ -2,8 +2,9 @@ import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { getContactByPhoneNumber, updateContact } from '@/services/contactService'
 import type { IContact } from '@/types/contact'
-import Button from '@/components/Button'
 import Input from '@/components/Input'
+import { Button } from '@mui/material'
+import EditIcon from '@mui/icons-material/Edit'
 
 const EditContact = () => {
 	const { phoneNumber } = useParams<{ phoneNumber: string }>()
@@ -161,8 +162,8 @@ const EditContact = () => {
 					placeholder='https://github.com/...'
 					error={errors.github}
 				/>
-				<Button variant='add' type='submit'>
-					Save Changes
+				<Button variant="contained" startIcon={<EditIcon />} type='submit'>
+					Зберенгти зміни
 				</Button>
 			</form>
 		</div>
