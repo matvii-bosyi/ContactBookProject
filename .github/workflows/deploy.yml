@@ -1,0 +1,53 @@
+name: Deploy via SSH
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v1
+
+      - name: Install frontend dependencies
+        run: bun install
+        working-directory: ./front-end
+
+      - name: Build frontend application
+        run: bun run build
+        working-directory: ./front-end
+
+      - name: Prepare backend for deployment
+        run: |
+          mkdir -p back-end/public
+          cp -r front-end/dist/* back-end/public/
+
+      - name: Copy files to server via SCP
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }} # Використовуємо ключ замість пароля - це безпечніше
+          port: ${{ secrets.SSH_PORT || 22 }}
+          source: "back-end/"
+          target: "~/contact-book"
+
+      - name: Install dependencies and restart server
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.SSH_PORT || 22 }}
+          script: |
+            cd ~/contact-book/back-end
+            bun install --production # Встановлюємо тільки продакшн залежності
+            bun install -g pm2
+            pm2 restart index.ts || pm2 start index.ts --name contact-book-app
