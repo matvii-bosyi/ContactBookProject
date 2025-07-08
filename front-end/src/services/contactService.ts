@@ -1,10 +1,10 @@
 import type { IContact } from '@/types/contact';
 
-const API_BASE_URL = 'http://localhost:3000/';
+const API_BASE_URL = '/api/';
 
 export const getContacts = async (): Promise<IContact[]> => {
   try {
-    const response = await fetch(`${API_BASE_URL}`);
+    const response = await fetch(`${API_BASE_URL}contacts`);
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
@@ -18,7 +18,7 @@ export const getContacts = async (): Promise<IContact[]> => {
 
 export const addContact = async (newContact: IContact): Promise<IContact> => {
   try {
-    const response = await fetch(`${API_BASE_URL}`, {
+    const response = await fetch(`${API_BASE_URL}contacts`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -38,7 +38,7 @@ export const addContact = async (newContact: IContact): Promise<IContact> => {
 
 export const getContactByPhoneNumber = async (phoneNumber: string): Promise<IContact | null> => {
   try {
-    const response = await fetch(`${API_BASE_URL}phone/${phoneNumber}`);
+    const response = await fetch(`${API_BASE_URL}contacts/phone/${phoneNumber}`);
     if (response.status === 404) {
       return null;
     }
@@ -55,7 +55,7 @@ export const getContactByPhoneNumber = async (phoneNumber: string): Promise<ICon
 
 export const deleteContact = async (id: string): Promise<void> => {
   try {
-    const response = await fetch(`${API_BASE_URL}${id}`, {
+    const response = await fetch(`${API_BASE_URL}contacts/${id}`, {
       method: 'DELETE',
     });
     if (!response.ok) {
@@ -69,7 +69,7 @@ export const deleteContact = async (id: string): Promise<void> => {
 
 export const updateContact = async (id: string, updatedContact: IContact): Promise<IContact> => {
   try {
-    const response = await fetch(`${API_BASE_URL}${id}`, {
+    const response = await fetch(`${API_BASE_URL}contacts/${id}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
@@ -83,6 +83,23 @@ export const updateContact = async (id: string, updatedContact: IContact): Promi
     return data;
   } catch (error) {
     console.error(`Помилка при оновленні контакту з id ${id}:`, error);
+    throw error;
+  }
+};
+
+export const getContactById = async (id: string): Promise<IContact | null> => {
+  try {
+    const response = await fetch(`${API_BASE_URL}contacts/${id}`);
+    if (response.status === 404) {
+      return null;
+    }
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const data: IContact = await response.json();
+    return data;
+  } catch (error) {
+    console.error(`Помилка при отриманні контакту з id ${id}:`, error);
     throw error;
   }
 };
