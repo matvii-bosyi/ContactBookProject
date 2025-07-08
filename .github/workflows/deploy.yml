@@ -34,8 +34,7 @@ jobs:
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }} # Використовуємо ключ замість пароля - це безпечніше
-          port: ${{ secrets.SSH_PORT || 22 }}
+          password: ${{ secrets.SSH_PASSWORD }}
           source: "back-end/"
           target: "~/contact-book"
 
@@ -44,10 +43,9 @@ jobs:
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          port: ${{ secrets.SSH_PORT || 22 }}
+          password: ${{ secrets.SSH_PASSWORD }}
           script: |
             cd ~/contact-book/back-end
-            bun install --production # Встановлюємо тільки продакшн залежності
             bun install -g pm2
+            bun install --production
             pm2 restart index.ts || pm2 start index.ts --name contact-book-app
