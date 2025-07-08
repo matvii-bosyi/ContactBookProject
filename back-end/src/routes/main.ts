@@ -16,7 +16,7 @@ const contactSchema = z.object({
   github: z.string().url({ message: 'Invalid URL' }).startsWith('https://github.com/', { message: 'URL must start with https://github.com/' }).optional().or(z.literal(''))
 })
 
-mainRoutes.get('/', async c => {
+mainRoutes.get('/contacts', async c => {
 	try {
 		const contacts = await Contact.find().sort({ createdAt: -1 })
 		return c.json(contacts)
@@ -25,7 +25,7 @@ mainRoutes.get('/', async c => {
 	}
 })
 
-mainRoutes.get('/phone/:phoneNumber', async c => {
+mainRoutes.get('/contacts/phone/:phoneNumber', async c => {
   try {
     const phoneNumber = c.req.param('phoneNumber')
     const contact = await Contact.findOne({ phoneNumber })
@@ -40,7 +40,7 @@ mainRoutes.get('/phone/:phoneNumber', async c => {
   }
 })
 
-mainRoutes.get('/:id', async c => {
+mainRoutes.get('/contacts/:id', async c => {
 	try {
 		const id = c.req.param('id')
 
@@ -60,7 +60,7 @@ mainRoutes.get('/:id', async c => {
 	}
 })
 
-mainRoutes.post('/', zValidator('json', contactSchema), async c => {
+mainRoutes.post('/contacts', zValidator('json', contactSchema), async c => {
   try {
     const body = c.req.valid('json')
     const contact = new Contact(body)
@@ -74,7 +74,7 @@ mainRoutes.post('/', zValidator('json', contactSchema), async c => {
   }
 })
 
-mainRoutes.patch('/:id', zValidator('json', contactSchema.partial()), async c => {
+mainRoutes.patch('/contacts/:id', zValidator('json', contactSchema.partial()), async c => {
   try {
     const id = c.req.param('id')
 
@@ -103,7 +103,7 @@ mainRoutes.patch('/:id', zValidator('json', contactSchema.partial()), async c =>
   }
 })
 
-mainRoutes.delete('/:id', async c => {
+mainRoutes.delete('/contacts/:id', async c => {
 	try {
 		const id = c.req.param('id')
 
