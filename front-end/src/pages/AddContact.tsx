@@ -5,6 +5,7 @@ import type { IContact } from '@/types/contact'
 import Input from '@/components/Input'
 import { Button } from '@mui/material'
 import AddIcon from '@mui/icons-material/Add'
+import toast from 'react-hot-toast'
 
 const AddContact = () => {
 	const [formData, setFormData] = useState<IContact>({
@@ -66,16 +67,23 @@ const AddContact = () => {
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault()
 		if (!validate()) {
+			toast.error('Будь ласка, виправте помилки у формі.')
 			return
 		}
 		try {
 			await addContact(formData)
+			toast.success('Контакт успішно додано!')
 			navigate('/')
 		} catch (error: any) {
-			if (error.response && error.response.data && error.response.data.error) {
-				setErrors({ phoneNumber: error.response.data.error })
+			if (error.status === 409) {
+				setErrors({ phoneNumber: 'Цей номер телефону вже існує.' })
+				toast.error('Контакт з таким номером телефону вже існує.')
+			} else if (error.error) {
+				setErrors({ phoneNumber: error.error })
+				toast.error(error.error)
 			} else {
 				console.error('Failed to add contact:', error)
+				toast.error('Помилка при додаванні контакту.')
 			}
 		}
 	}
