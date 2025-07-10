@@ -28,7 +28,6 @@ const Contacts: React.FC = () => {
 				} else {
 					setError('An unknown error occurred')
 				}
-				console.log(err)
 			} finally {
 				setLoading(false)
 			}
