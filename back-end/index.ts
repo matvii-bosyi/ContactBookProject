@@ -7,7 +7,7 @@ const DATABASE = process.env.DATABASE
 
 const app = new Hono()
 
-app.route('/api', mainRoutes)
+app.route('/', mainRoutes)
 
 app.use('/*', serveStatic({ root: './public' }))
 
