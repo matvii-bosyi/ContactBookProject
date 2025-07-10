@@ -5,16 +5,16 @@ import {
 	getContactByPhoneNumber,
 	deleteContact
 } from '@/services/contactService'
-import { Button, IconButton } from '@mui/material'
+import { Button, IconButton, Modal, Box, Typography } from '@mui/material'
 import DeleteIcon from '@mui/icons-material/Delete'
 import EditIcon from '@mui/icons-material/Edit'
-// import Button from '@/components/Button'
 
 const ContactInfo: React.FC = () => {
 	const { phoneNumber } = useParams<{ phoneNumber: string }>()
 	const [contact, setContact] = useState<IContact | null>(null)
 	const [loading, setLoading] = useState<boolean>(true)
 	const [error, setError] = useState<string | null>(null)
+	const [open, setOpen] = useState(false)
 	const navigate = useNavigate()
 
 	useEffect(() => {
@@ -34,15 +34,16 @@ const ContactInfo: React.FC = () => {
 		}
 	}, [phoneNumber])
 
+	const handleOpen = () => setOpen(true)
+	const handleClose = () => setOpen(false)
+
 	const handleDelete = async () => {
 		if (contact?._id) {
-			if (window.confirm('Чи ви впевнені що хочете видалити контакт?')) {
-				try {
-					await deleteContact(contact._id)
-					navigate('/')
-				} catch (err: any) {
-					setError(err.message)
-				}
+			try {
+				await deleteContact(contact._id)
+				navigate('/')
+			} catch (err: any) {
+				setError(err.message)
 			}
 		}
 	}
@@ -67,7 +68,6 @@ const ContactInfo: React.FC = () => {
 				Контакт з номером {phoneNumber} не знайдено.
 				<div className='mt-4'>
 					<Link to='/'>
-						{/* <Button variant='back'>Повернутися до списку</Button> */}
 						<Button variant='contained'>Повернутися до списку</Button>
 					</Link>
 				</div>
@@ -134,14 +134,41 @@ const ContactInfo: React.FC = () => {
 							<EditIcon />
 						</IconButton>
 					</Link>
-					<IconButton onClick={handleDelete} aria-label='delete'
-						color='primary'>
+					<IconButton onClick={handleOpen} aria-label='delete' color='primary'>
 						<DeleteIcon />
 					</IconButton>
 				</div>
 			</div>
+			<Modal
+				open={open}
+				onClose={handleClose}
+				aria-labelledby='modal-modal-title'
+				aria-describedby='modal-modal-description'>
+				<Box
+					sx={{
+						position: 'absolute' as 'absolute',
+						top: '50%',
+						left: '50%',
+						transform: 'translate(-50%, -50%)',
+						width: 400,
+						bgcolor: 'background.paper',
+						border: '2px solid #000',
+						boxShadow: 24,
+						p: 4
+					}}>
+					<Typography id='modal-modal-title' variant='h6' component='h2'>
+						Ви впевнені, що хочете видалити контакт?
+					</Typography>
+					<Box sx={{ mt: 2, display: 'flex', justifyContent: 'flex-end' }}>
+						<Button onClick={handleClose}>Ні</Button>
+						<Button onClick={handleDelete} color='error'>
+							Так
+						</Button>
+					</Box>
+				</Box>
+			</Modal>
 		</div>
-	) 
+	)
 }
 
 export default ContactInfo
