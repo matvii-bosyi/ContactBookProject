@@ -11,7 +11,7 @@
 
 ## 🧱 Технології
 
-- Frontend: **HTML / CSS / TypeScript**
+- Frontend: **[React](https://react.dev/)**
 - Стилі: **[Tailwind](https://tailwindcss.com/)**
 - Backend: **[Hono](https://hono.dev/)**
 - База даних: **[MongoDB](https://www.mongodb.com/)**
