@@ -35,7 +35,7 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
           password: ${{ secrets.SSH_PASSWORD }}
-          source: "back-end/"
+          source: "back-end/*"
           target: "~/htdocs/exploring.swit.vn.ua"
 
       - name: Install dependencies and restart server
@@ -45,7 +45,7 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           password: ${{ secrets.SSH_PASSWORD }}
           script: |
-            cd ~/htdocs/exploring.swit.vn.ua/back-end
+            cd ~/htdocs/exploring.swit.vn.ua
             bun install -g pm2
             bun install --production
             pm2 restart index.ts || pm2 start index.ts --name contact-book-app
