@@ -7,22 +7,24 @@ import { Link } from 'react-router-dom'
 import { Button } from '@mui/material'
 import AddIcon from '@mui/icons-material/Add'
 import ContactListSkeleton from '@/features/ContactListSkeleton'
+import SortButtons, { type SortDirection, type SortType } from '@/components/SortButtons'
 
 const Contacts: React.FC = () => {
 	const [contacts, setContacts] = useState<IContact[]>([])
 	const [loading, setLoading] = useState<boolean>(true)
 	const [error, setError] = useState<string | null>(null)
 	const [searchTerm, setSearchTerm] = useState('')
+	const [sortType, setSortType] = useState<SortType>('date')
+	const [sortDirection, setSortDirection] = useState<SortDirection>('desc')
 
 	useEffect(() => {
 		const fetchContacts = async () => {
 			try {
-				// Симуляцію довгого очікування беку
-				// await new Promise(resolve => setTimeout(resolve, 1000))
 				const data = await getContacts()
 				setContacts(data)
 			} catch (err: any) {
 				setError(err.message)
+				console.log(err.message)
 			} finally {
 				setLoading(false)
 			}
@@ -31,18 +33,35 @@ const Contacts: React.FC = () => {
 		fetchContacts()
 	}, [])
 
-	const filteredContacts = useMemo(() => {
-		return contacts.filter(
+	const processedContacts = useMemo(() => {
+		const filtered = contacts.filter(
 			contact =>
 				contact.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
 				contact.phoneNumber.includes(searchTerm)
 		)
-	}, [contacts, searchTerm])
 
-	if (error) {
-		return (
-			<div className='text-center text-xl text-red-500'>Помилка: {error}</div>
-		)
+		const sorted = [...filtered].sort((a, b) => {
+			if (sortType === 'name') {
+				const nameA = a.name.toLowerCase()
+				const nameB = b.name.toLowerCase()
+				if (nameA < nameB) return sortDirection === 'asc' ? -1 : 1
+				if (nameA > nameB) return sortDirection === 'asc' ? 1 : -1
+				return 0
+			}
+			if (sortType === 'date') {
+				const dateA = new Date(a.createdAt || 0).getTime()
+				const dateB = new Date(b.createdAt || 0).getTime()
+				return sortDirection === 'asc' ? dateA - dateB : dateB - dateA
+			}
+			return 0
+		})
+
+		return sorted
+	}, [contacts, searchTerm, sortType, sortDirection])
+
+	const handleSortChange = (type: SortType, direction: SortDirection) => {
+		setSortType(type)
+		setSortDirection(direction)
 	}
 
 	return (
@@ -53,19 +72,26 @@ const Contacts: React.FC = () => {
 					Створити контакт
 				</Button>
 			</Link>
-			<div>
+			<div className="flex flex-col sm:flex-row items-center gap-4">
 				<Search
 					value={searchTerm}
 					onChange={e => setSearchTerm(e.target.value)}
 					onClear={() => setSearchTerm('')}
 					placeholder='Пошук за іменем або номером'
 				/>
+				<SortButtons
+					onSortChange={handleSortChange}
+					currentSort={sortType}
+					currentDirection={sortDirection}
+				/>
 			</div>
 
-			{loading ? (
+			{error ? (
+				<div className='text-center text-xl text-red-500'>Помилка: {error}</div>
+			) : loading ? (
 				<ContactListSkeleton />
 			) : (
-				<ContactList contacts={filteredContacts} />
+				<ContactList contacts={processedContacts} />
 			)}
 		</div>
 	)

@@ -7,4 +7,6 @@ export interface IContact {
   discord?: string;
   telegram?: string;
   github?: string;
+  createdAt?: string; 
+  updatedAt?: string;
 }
