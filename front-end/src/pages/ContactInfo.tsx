@@ -8,7 +8,11 @@ import {
 import { Button, IconButton } from '@mui/material'
 import DeleteIcon from '@mui/icons-material/Delete'
 import EditIcon from '@mui/icons-material/Edit'
+<<<<<<< Updated upstream
 // import Button from '@/components/Button'
+=======
+import toast from 'react-hot-toast';
+>>>>>>> Stashed changes
 
 const ContactInfo: React.FC = () => {
 	const { phoneNumber } = useParams<{ phoneNumber: string }>()
@@ -34,6 +38,7 @@ const ContactInfo: React.FC = () => {
 		}
 	}, [phoneNumber])
 
+<<<<<<< Updated upstream
 	const handleDelete = async () => {
 		if (contact?._id) {
 			if (window.confirm('Чи ви впевнені що хочете видалити контакт?')) {
@@ -43,6 +48,21 @@ const ContactInfo: React.FC = () => {
 				} catch (err: any) {
 					setError(err.message)
 				}
+=======
+
+	const handleOpen = () => setOpen(true)
+	const handleClose = () => setOpen(false)
+
+	const handleDelete = async () => {
+		if (contact?._id) {
+			try {
+				await deleteContact(contact._id)
+				toast.success('Контакт успішно видалено!')
+				navigate('/')
+			} catch (err: any) {
+				setError(err.message)
+				toast.error('Помилка при видаленні контакту.')
+>>>>>>> Stashed changes
 			}
 		}
 	}
@@ -140,6 +160,37 @@ const ContactInfo: React.FC = () => {
 					</IconButton>
 				</div>
 			</div>
+<<<<<<< Updated upstream
+=======
+			<Modal
+				open={open}
+				onClose={handleClose}
+				aria-labelledby='modal-modal-title'
+				aria-describedby='modal-modal-description'>
+				<Box
+					sx={{
+						position: 'absolute' as const,
+						top: '50%',
+						left: '50%',
+						transform: 'translate(-50%, -50%)',
+						width: 400,
+						bgcolor: 'background.paper',
+						border: '2px solid #000',
+						boxShadow: 24,
+						p: 4
+					}}>
+					<Typography id='modal-modal-title' variant='h6' component='h2'>
+						Ви впевнені, що хочете видалити контакт?
+					</Typography>
+					<Box sx={{ mt: 2, display: 'flex', justifyContent: 'flex-end' }}>
+						<Button onClick={handleClose}>Ні</Button>
+						<Button onClick={handleDelete} color='error'>
+							Так
+						</Button>
+					</Box>
+				</Box>
+			</Modal>
+>>>>>>> Stashed changes
 		</div>
 	) 
 }

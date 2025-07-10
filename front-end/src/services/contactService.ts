@@ -17,23 +17,19 @@ export const getContacts = async (): Promise<IContact[]> => {
 };
 
 export const addContact = async (newContact: IContact): Promise<IContact> => {
-  try {
-    const response = await fetch(`${API_BASE_URL}contacts`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(newContact),
-    });
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    const data: IContact = await response.json();
-    return data;
-  } catch (error) {
-    console.error("Помилка при додаванні контакту:", error);
-    throw error;
+  const response = await fetch(`${API_BASE_URL}contacts`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(newContact),
+  });
+  if (!response.ok) {
+    const errorData = await response.json();
+    throw { ...errorData, status: response.status };
   }
+  const data: IContact = await response.json();
+  return data;
 };
 
 export const getContactByPhoneNumber = async (phoneNumber: string): Promise<IContact | null> => {
@@ -68,23 +64,19 @@ export const deleteContact = async (id: string): Promise<void> => {
 };
 
 export const updateContact = async (id: string, updatedContact: IContact): Promise<IContact> => {
-  try {
-    const response = await fetch(`${API_BASE_URL}contacts/${id}`, {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(updatedContact),
-    });
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    const data: IContact = await response.json();
-    return data;
-  } catch (error) {
-    console.error(`Помилка при оновленні контакту з id ${id}:`, error);
-    throw error;
+  const response = await fetch(`${API_BASE_URL}contacts/${id}`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(updatedContact),
+  });
+  if (!response.ok) {
+    const errorData = await response.json();
+    throw { ...errorData, status: response.status };
   }
+  const data: IContact = await response.json();
+  return data;
 };
 
 export const getContactById = async (id: string): Promise<IContact | null> => {

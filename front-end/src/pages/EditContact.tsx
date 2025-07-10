@@ -1,15 +1,21 @@
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import { getContactByPhoneNumber, updateContact } from '@/services/contactService'
+import {
+	getContactByPhoneNumber,
+	updateContact
+} from '@/services/contactService'
 import type { IContact } from '@/types/contact'
 import Input from '@/components/Input'
 import { Button } from '@mui/material'
 import EditIcon from '@mui/icons-material/Edit'
+import toast from 'react-hot-toast'
 
 const EditContact = () => {
 	const { phoneNumber } = useParams<{ phoneNumber: string }>()
 	const [formData, setFormData] = useState<IContact | null>(null)
-	const [errors, setErrors] = useState<Partial<Record<keyof IContact, string>>>({})
+	const [errors, setErrors] = useState<Partial<Record<keyof IContact, string>>>(
+		{}
+	)
 	const navigate = useNavigate()
 
 	useEffect(() => {
@@ -73,20 +79,28 @@ const EditContact = () => {
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault()
 		if (!formData || !validate()) {
+			toast.error('Будь ласка, виправте помилки у формі.')
 			return
 		}
 		try {
 			if (formData._id) {
-                await updateContact(formData._id, formData)
-			    navigate(`/contact/${formData.phoneNumber}`)
-            } else {
-                console.error('Contact ID is missing')
-            }
+				await updateContact(formData._id, formData)
+				toast.success('Контакт успішно оновлено!')
+				navigate(`/contact/${formData.phoneNumber}`)
+			} else {
+				console.error('Contact ID is missing')
+				toast.error('Помилка: ID контакту відсутній.')
+			}
 		} catch (error: any) {
-			if (error.response && error.response.data && error.response.data.error) {
-				setErrors({ phoneNumber: error.response.data.error })
+			if (error.status === 409) {
+				setErrors({ phoneNumber: 'Цей номер телефону вже існує.' })
+				toast.error('Контакт з таким номером телефону вже існує.')
+			} else if (error.error) {
+				setErrors({ phoneNumber: error.error })
+				toast.error(error.error)
 			} else {
 				console.error('Failed to update contact:', error)
+				toast.error('Помилка при оновленні контакту.')
 			}
 		}
 	}
@@ -162,7 +176,7 @@ const EditContact = () => {
 					placeholder='https://github.com/...'
 					error={errors.github}
 				/>
-				<Button variant="contained" startIcon={<EditIcon />} type='submit'>
+				<Button variant='contained' startIcon={<EditIcon />} type='submit'>
 					Зберенгти зміни
 				</Button>
 			</form>

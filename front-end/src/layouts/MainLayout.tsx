@@ -4,6 +4,7 @@ import Footer from '@/components/Footer';
 import { useEffect, useState } from 'react';
 import { getContacts } from '@/services/contactService';
 import type { IContact } from '@/types/contact';
+import { Toaster } from 'react-hot-toast';
 
 const MainLayout: React.FC = () => {
   const [contacts, setContacts] = useState<IContact[]>([]);
@@ -23,6 +24,7 @@ const MainLayout: React.FC = () => {
 
   return (
     <div className="flex flex-col min-h-screen">
+      <Toaster position="bottom-right" reverseOrder={false} />
       <Header contactCount={contacts.length} />
       <main className="flex-grow container mx-auto p-4 flex flex-col items-center">
         <Outlet />
