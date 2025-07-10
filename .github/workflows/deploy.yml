@@ -29,6 +29,9 @@ jobs:
           mkdir -p back-end/public
           cp -r front-end/dist/* back-end/public/
 
+      - name: Create .env file
+        run: echo "DATABASE=${{ secrets.DATABASE }}" > ./back-end/.env
+
       - name: Copy files to server via SCP
         uses: appleboy/scp-action@v0.1.7
         with:
