@@ -35,8 +35,8 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
           password: ${{ secrets.SSH_PASSWORD }}
-          source: "back-end/*"
-          target: "~/htdocs/exploring.swit.vn.ua"
+          source: '.'
+          target: '~/htdocs/exploring.swit.vn.ua'
 
       - name: Install dependencies and restart server
         uses: appleboy/ssh-action@v1.0.3
