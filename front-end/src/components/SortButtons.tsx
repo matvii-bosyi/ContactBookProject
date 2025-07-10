@@ -21,10 +21,8 @@ const SortButtons: React.FC<SortButtonsProps> = ({
     let newDirection: SortDirection;
     
     if (activeSort === sortType) {
-      // Якщо клікнули на активну кнопку, змінюємо напрямок
       newDirection = sortDirection === 'asc' ? 'desc' : 'asc';
     } else {
-      // Якщо клікнули на неактивну кнопку, встановлюємо за замовчуванням
       newDirection = sortType === 'date' ? 'desc' : 'asc';
     }
     

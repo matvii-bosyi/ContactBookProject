@@ -30,7 +30,7 @@ const Input: React.FC<InputProps> = ({
 				id={id}
 				name={id}
 				className={`${baseStyles} ${className}`}
-				{...(props as any)}
+				{...props}
 			/>
 			{error && <p className='text-red-500 text-xs mt-1'>{error}</p>}
 		</div>

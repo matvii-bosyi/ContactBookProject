@@ -28,12 +28,12 @@ const AddContact = () => {
 		if (formData.name.length < 3) {
 			newErrors.name = 'Name must be at least 3 characters long'
 		}
-		if (!/^\+?[0-9\s\-]{7,15}$/.test(formData.phoneNumber)) {
+		if (!/^[+0-9\s-]{7,15}$/.test(formData.phoneNumber)) {
 			newErrors.phoneNumber = 'Invalid phone number format'
 		}
 		if (
 			formData.gmail &&
-			!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(formData.gmail)
+			!/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(formData.gmail)
 		) {
 			newErrors.gmail = 'Please fill a valid email address'
 		}
@@ -74,13 +74,13 @@ const AddContact = () => {
 			await addContact(formData)
 			toast.success('Контакт успішно додано!')
 			navigate('/')
-		} catch (error: any) {
-			if (error.status === 409) {
+		} catch (error: unknown) {
+			if (typeof error === 'object' && error !== null && 'status' in error && error.status === 409) {
 				setErrors({ phoneNumber: 'Цей номер телефону вже існує.' })
 				toast.error('Контакт з таким номером телефону вже існує.')
-			} else if (error.error) {
-				setErrors({ phoneNumber: error.error })
-				toast.error(error.error)
+			} else if (typeof error === 'object' && error !== null && 'error' in error) {
+				setErrors({ phoneNumber: (error as { error: string }).error })
+				toast.error((error as { error: string }).error)
 			} else {
 				console.error('Failed to add contact:', error)
 				toast.error('Помилка при додаванні контакту.')
@@ -155,17 +155,6 @@ const AddContact = () => {
 					placeholder='https://github.com/...'
 					error={errors.github}
 				/>
-				{/* <TextField
-					id='standard-basic'
-					label='Github'
-					variant='standard'
-					id='github'
-					type='url'
-					value={formData.github}
-					onChange={handleChange}
-					placeholder='https://github.com/...'
-					error={errors.github}
-				/> */}
 				<Button type='submit' variant='contained' startIcon={<AddIcon />}>
 					Створити контакт
 				</Button>

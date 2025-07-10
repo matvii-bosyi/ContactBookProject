@@ -22,9 +22,13 @@ const Contacts: React.FC = () => {
 			try {
 				const data = await getContacts()
 				setContacts(data)
-			} catch (err: any) {
-				setError(err.message)
-				console.log(err.message)
+			} catch (err: unknown) {
+				if (err instanceof Error) {
+					setError(err.message)
+				} else {
+					setError('An unknown error occurred')
+				}
+				console.log(err)
 			} finally {
 				setLoading(false)
 			}
