@@ -16,3 +16,6 @@
 - Backend: **[Hono](https://hono.dev/)**
 - База даних: **[MongoDB](https://www.mongodb.com/)**
 - Пакетний менеджер: **[Bun](https://bun.sh/)**
+
+## 🔗 Посилання на сайт
+https://exploring.swit.vn.ua/
